@@ -27,7 +27,9 @@ main {
 
 #window-wrapper {
     background-color: #c0c7c8;
-    box-shadow: 0 0 0 2px #f7f7f7, 0 0 0 4px #dedede;
+    border-image: url('images/border.png') 4 / 4px round;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
 }
 
 #title-bar {
@@ -100,15 +102,21 @@ main {
     width: 122px;
 }
 
+#canvas-and-scroll-container {
+    display: flex;
+    border:4px solid transparent;
+    border-image: url('images/border-inverted.png') 4 / 4px round;
+    margin-right:8px;
+}
+
 #canvas {
     width: 500px;
     height: 500px;
     background-color: white;
-    border: 2px inset black;
 }
 
 #scroll-bar {
-    width: 40px;
+    width: 32px;
     background-color: #dedede;
     display:flex;
     justify-content: space-between;
@@ -117,10 +125,11 @@ main {
 }
 
 #scroll-up-button, #scroll-down-button {
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     background-color: #bdbdbd;
-    border:2px outset gray;
+    border:4px solid transparent;
+    border-image: url('images/border.png') 4 / 4px round;
 }
 
 #color-picker {
