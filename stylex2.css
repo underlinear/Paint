@@ -35,20 +35,39 @@ main {
     height: 36px;
     margin: 4px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-#title-bar p {
+#title-bar #title {
+    display: flex;
+    align-items: center;
+}
+
+#title-bar #title p {
     font-family: 'ms-sans-serif-bold',sans-serif;
     color: white;
     font-size: 18px;
 }
 
-#title-bar img {
+#title-bar #title img {
     width: 34px;
     height: 32px;
     margin-left: 4px;
     margin-right: 6px;
+}
+
+#title-bar #button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 4px;
+}
+
+#title-bar #button img {
+    width: 32px;
+    height: 28px;
+    margin-left:4px;
 }
 
 #menu-bar {
@@ -92,15 +111,16 @@ main {
     width: 40px;
     background-color: #dedede;
     display:flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: flex-start;
     flex-direction:column;
 }
 
-#scroll-up-button {
+#scroll-up-button, #scroll-down-button {
     width: 32px;
     height: 32px;
-    background-color:white;
+    background-color: #bdbdbd;
+    border:2px outset gray;
 }
 
 #color-picker {
