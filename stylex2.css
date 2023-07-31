@@ -180,6 +180,19 @@ main {
     background-color: white;
 }
 
+.canvasrow {
+    display: flex;
+}
+
+.canvascolumn {
+    flex: 1 0 auto;
+    aspect-ratio: 1/1;
+}
+
+.canvascolumn:hover {
+    background-color: black;
+}
+
 #scroll-bar {
     width: 32px;
     background-color: #dedede;
@@ -210,7 +223,7 @@ main {
 #color-picker #color-selected img {
     width: 54px;
     height: 56px;
-    background-color: #ff0000;
+    background-color: black;
     border:4px solid transparent;
     border-image: url('images/border/border-palette.png') 4 / 4px round;
 }
