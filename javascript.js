@@ -2,7 +2,6 @@ const canvas = document.querySelector("#canvas");
 const colorPalette = Array.from(document.querySelector("#color-palette").children);
 const tools = document.querySelector("#tools").children;
 const colorSelected = document.querySelector("#color-selected img");
-
 function createCanvas(dimensions) {
     for(let y = 0; y < dimensions; y++)
     {
@@ -18,7 +17,14 @@ function createCanvas(dimensions) {
     }
 }
 
-createCanvas(50);
+createCanvas(32);
+const canvasPixel = Array.from(document.querySelectorAll(".canvascolumn"));
+canvasPixel.forEach((pixel) => {
+    pixel.addEventListener('mouseover',(pixelHovered) => {
+        pixelHovered.target.style.backgroundColor = colorSelected.style.backgroundColor;
+        console.log(colorSelected.style.backgroundColor);
+    })
+})
 
 
 //TODO: The selected color will change the background color of the #color-selected img,

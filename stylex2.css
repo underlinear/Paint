@@ -189,10 +189,6 @@ main {
     aspect-ratio: 1/1;
 }
 
-.canvascolumn:hover {
-    background-color: black;
-}
-
 #scroll-bar {
     width: 32px;
     background-color: #dedede;
