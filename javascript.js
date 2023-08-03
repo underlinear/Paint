@@ -29,19 +29,19 @@ function handleMouseOver(event) {
 
 function handleMouseDown(event) {
     canvasPixel.forEach((pixel) => {
-    pixel.addEventListener('mouseover',handleMouseOver);
+    pixel.addEventListener('pointerover',handleMouseOver);
     })
 }
 
 createCanvas(50);
 const canvasPixel = Array.from(document.querySelectorAll(".canvascolumn"));
 canvasPixel.forEach((pixel) => {
-    pixel.addEventListener('mousedown', handleMouseDown)
+    pixel.addEventListener('pointerdown', handleMouseDown)
 });
 
-window.addEventListener('mouseup',() => {
+window.addEventListener('pointerup',() => {
     canvasPixel.forEach((pixel) => {
-        pixel.removeEventListener('mouseover',handleMouseOver)
+        pixel.removeEventListener('pointerover',handleMouseOver)
         })
     }
 );
