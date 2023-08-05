@@ -159,12 +159,18 @@ main {
     height: 42px;
 }
 
-#sidebar-tools #tools div:active{
+#sidebar-tools #tools .active-button {
+    border: 4px solid transparent;
     border-image: url('images/border/border-inverted.png') 4 / 4px round;
     /*TEMP: replace with background-image */
     background: 
     repeating-conic-gradient(#bdbdbd 0% 25%, white 0% 50%) 
       50% / 4px 4px;
+}
+
+.active-button img {
+    margin-top: 2px;
+    margin-left: 2px;
 }
 
 #canvas-and-scroll-container {
@@ -187,6 +193,7 @@ main {
 .canvascolumn {
     flex: 1 0 auto;
     aspect-ratio: 1/1;
+    background-color: rgb(255,255,255);
 }
 
 #scroll-bar {
@@ -219,7 +226,7 @@ main {
 #color-picker #color-selected img {
     width: 54px;
     height: 56px;
-    background-color: black;
+    background-color: white;
     border:4px solid transparent;
     border-image: url('images/border/border-palette.png') 4 / 4px round;
 }
