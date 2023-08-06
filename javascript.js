@@ -80,6 +80,7 @@ function fillCanvas() {
     if(response){
         canvasPixel.forEach((pixel) => {
             pixel.style.backgroundColor = currentColor.backgroundColor;
+            fillColor = currentColor.backgroundColor;
         });
     }
 }
