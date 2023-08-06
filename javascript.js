@@ -15,7 +15,10 @@ let rainbowPen = false;
 let normalPen = true;
 let darkenPen = false;
 let eraser = false;
+let colorPicker = false;
 let fillColor = 'white';
+
+
 penButton.classList.add('active-button');
 
 function createCanvas(dimensions) {
@@ -49,7 +52,7 @@ function colorCanvas(pixel) {
         redValue = Math.floor((+targetRgbValue[1] + +currentRgbValue[1]) / 2);
         greenValue = Math.floor((+targetRgbValue[2] + +currentRgbValue[2]) / 2);
         blueValue = Math.floor((+targetRgbValue[3] + +currentRgbValue[3]) / 2);
-        /* FOR HEX VALUE ONLY
+        /* FOR HEX VALUE ONLY (failed code but might be useful in the future)
         redValue = parseInt(pixel.target.style.backgroundColor.slice(1,3),16);
         greenValue = parseInt(pixel.target.style.backgroundColor.slice(3,5),16);
         blueValue = parseInt(pixel.target.style.backgroundColor.slice(5,7),16);
@@ -62,11 +65,33 @@ function colorCanvas(pixel) {
     else if (normalPen === true) {
         pixel.target.style.backgroundColor = currentColor.backgroundColor;
     }
+    else if(colorPicker === true) {
+        colorSelected.style.backgroundColor = targetPixel.backgroundColor;
+        toggleTool("normalPen");
+    }
     else {
         alert("ERROR! How could this be?");
     }
 }
 
+function fillCanvas() {
+    const currentColor = getComputedStyle(colorSelected);
+    let response = confirm("Warning: This will fill all of the canvas. Continue?");
+    if(response){
+        canvasPixel.forEach((pixel) => {
+            pixel.style.backgroundColor = currentColor.backgroundColor;
+        });
+    }
+}
+
+function eraseCanvas() {
+    let response = confirm("Are you sure you want to delete the current drawing?");
+    if(response){
+        canvasPixel.forEach((pixel) => {
+            pixel.style.backgroundColor = "white"
+        });
+    }
+}
 function handleMouseOver(event) {
     colorCanvas(event);
 }
@@ -98,6 +123,7 @@ function toggleTool(tool) {
     rainbowPen = false;
     darkenPen = false;
     eraser = false;
+    colorPicker = false;
     if (tool === "normalPen") {
         normalPen = true;
         penButton.classList.add('active-button');
@@ -108,7 +134,11 @@ function toggleTool(tool) {
     }
     else if (tool === "darkenPen") { 
         darkenPen = true 
-         darkenPenButton.classList.add('active-button');
+        darkenPenButton.classList.add('active-button');
+    }
+    else if (tool === "colorPicker") {
+        colorPicker = true;
+        colorPickerButton.classList.add('active-button');
     }
     else { 
         eraser = true;
@@ -125,6 +155,10 @@ function toggleTool(tool) {
     if(darkenPen===false)
     {
         darkenPenButton.classList.remove('active-button');
+    }
+    if(colorPicker===false)
+    {
+        colorPickerButton.classList.remove('active-button');
     }
     if(eraser===false)
     {
@@ -147,27 +181,15 @@ window.addEventListener('pointerup', () => {
 }
 );
 
-clearButton.addEventListener('click', () => {
-    let response = confirm("Are you sure you want to delete the current drawing?");
-    if(response){
-    canvasPixel.forEach((pixel) => {
-        pixel.style.backgroundColor = "white"
-    });
-    }
-});
-penButton.addEventListener('click', () => {toggleTool("normalPen")});
 
+penButton.addEventListener('click', () => {toggleTool("normalPen")});
+colorPickerButton.addEventListener('click', () => {toggleTool("colorPicker")});
 darkenPenButton.addEventListener('click', () => {toggleTool("darkenPen")});
 rainbowPenButton.addEventListener('click', () => {toggleTool("rainbowPen")});
+fillButton.addEventListener('click', () => {fillCanvas()});
 gridButton.addEventListener('click', () => {toggleGrid()});
 eraseButton.addEventListener('click', () => {toggleTool("eraser")});
-
-
-
-
-//TODO: The selected color will change the background color of the #color-selected img,
-//TODO: The selected color will change the background color of .canvascolumn hover effect.
-
+clearButton.addEventListener('click', () => {eraseCanvas()});
 colorPalette.forEach((color) => {
     color.addEventListener('click', (colorTarget) => {
         const clickedColor = getComputedStyle(colorTarget.target);
