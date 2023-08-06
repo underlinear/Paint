@@ -8,12 +8,15 @@ const rainbowPenButton = document.querySelector("#rainbow");
 const darkenPenButton = document.querySelector("#darken");
 const penButton = document.querySelector("#pencil");
 const eraseButton = document.querySelector("#eraser");
+const colorPickerButton = document.querySelector("#color-extractor");
+const fillButton = document.querySelector("#fill");
 let gridActive = false;
 let rainbowPen = false;
 let normalPen = true;
 let darkenPen = false;
 let eraser = false;
 let fillColor = 'white';
+penButton.classList.add('active-button');
 
 function createCanvas(dimensions) {
     for (let y = 0; y < dimensions; y++) {
@@ -57,7 +60,7 @@ function colorCanvas(pixel) {
         pixel.target.style.backgroundColor = fillColor;
     }
     else if (normalPen === true) {
-        pixel.target.style.backgroundColor = colorSelected.style.backgroundColor;
+        pixel.target.style.backgroundColor = currentColor.backgroundColor;
     }
     else {
         alert("ERROR! How could this be?");
@@ -97,19 +100,39 @@ function toggleTool(tool) {
     eraser = false;
     if (tool === "normalPen") {
         normalPen = true;
+        penButton.classList.add('active-button');
     }
     else if (tool === "rainbowPen") {
         rainbowPen = true;
+        rainbowPenButton.classList.add('active-button');
     }
     else if (tool === "darkenPen") { 
         darkenPen = true 
+         darkenPenButton.classList.add('active-button');
     }
     else { 
-        eraser = true; 
+        eraser = true;
+        eraseButton.classList.add('active-button');
+    }
+    if(normalPen===false)
+    {
+        penButton.classList.remove('active-button');
+    }
+    if(rainbowPen===false)
+    {
+        rainbowPenButton.classList.remove('active-button');
+    }
+    if(darkenPen===false)
+    {
+        darkenPenButton.classList.remove('active-button');
+    }
+    if(eraser===false)
+    {
+        eraseButton.classList.remove('active-button');
     }
 }
 
-createCanvas(16);
+createCanvas(50);
 
 const canvasPixel = Array.from(document.querySelectorAll(".canvascolumn"));
 canvasPixel.forEach((pixel) => {
@@ -125,16 +148,20 @@ window.addEventListener('pointerup', () => {
 );
 
 clearButton.addEventListener('click', () => {
+    let response = confirm("Are you sure you want to delete the current drawing?");
+    if(response){
     canvasPixel.forEach((pixel) => {
         pixel.style.backgroundColor = "white"
-    })
+    });
+    }
 });
+penButton.addEventListener('click', () => {toggleTool("normalPen")});
 
-gridButton.addEventListener('click', () => {toggleGrid});
-eraseButton.addEventListener('click', () => {toggleTool("eraser")});
 darkenPenButton.addEventListener('click', () => {toggleTool("darkenPen")});
 rainbowPenButton.addEventListener('click', () => {toggleTool("rainbowPen")});
-penButton.addEventListener('click', () => {toggleTool("normalPen")});
+gridButton.addEventListener('click', () => {toggleGrid()});
+eraseButton.addEventListener('click', () => {toggleTool("eraser")});
+
 
 
 
