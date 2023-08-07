@@ -5,15 +5,17 @@ const colorSelected = document.querySelector("#color-selected img");
 const clearButton = document.querySelector("#clear");
 const gridButton = document.querySelector("#grid");
 const rainbowPenButton = document.querySelector("#rainbow");
-const darkenPenButton = document.querySelector("#darken");
+const opacityPenButton = document.querySelector("#opacity");
 const penButton = document.querySelector("#pencil");
 const eraseButton = document.querySelector("#eraser");
 const colorPickerButton = document.querySelector("#color-extractor");
 const fillButton = document.querySelector("#fill");
+const slider = document.querySelector('input[type="range"]');
+let canvasPixel;
 let gridActive = false;
 let rainbowPen = false;
 let normalPen = true;
-let darkenPen = false;
+let opacityPen = false;
 let eraser = false;
 let colorPicker = false;
 let fillColor = 'white';
@@ -22,6 +24,10 @@ let fillColor = 'white';
 penButton.classList.add('active-button');
 
 function createCanvas(dimensions) {
+    while(canvas.firstChild)
+    {
+        canvas.firstChild.remove();
+    }
     for (let y = 0; y < dimensions; y++) {
         const row = document.createElement('div');
         row.classList.add('canvasrow');
@@ -32,13 +38,26 @@ function createCanvas(dimensions) {
         }
         canvas.appendChild(row);
     }
+    canvasPixel = Array.from(document.querySelectorAll(".canvascolumn"));
+
+    canvasPixel.forEach((pixel) => {
+        pixel.addEventListener('pointerdown', handlePointerDown);
+        pixel.addEventListener('pointerdown', colorCanvas);
+    });
+    
+    window.addEventListener('pointerup', () => {
+        canvasPixel.forEach((pixel) => {
+            pixel.removeEventListener('pointerover', handlePointerOver)
+        })
+    }
+    );
 }
 
 function colorCanvas(pixel) {
     let currentColor = window.getComputedStyle(colorSelected);
     let targetPixel = window.getComputedStyle(pixel.target);
     let redValue, greenValue, blueValue;
-    console.log(rainbowPen, darkenPen, normalPen, eraser);
+    console.log(rainbowPen, opacityPen, normalPen, eraser);
     if (rainbowPen === true) {
         redValue = Math.floor(Math.random() * 256);
         greenValue = Math.floor(Math.random() * 256);
@@ -46,7 +65,7 @@ function colorCanvas(pixel) {
         colorSelected.style.backgroundColor = `rgb(${redValue},${greenValue},${blueValue})`;
         pixel.target.style.backgroundColor = colorSelected.style.backgroundColor;
     }
-    else if (darkenPen === true) {
+    else if (opacityPen === true) {
         let targetRgbValue = targetPixel.backgroundColor.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
         let currentRgbValue = currentColor.backgroundColor.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
         redValue = Math.floor((+targetRgbValue[1] + +currentRgbValue[1]) / 2);
@@ -93,13 +112,13 @@ function eraseCanvas() {
         });
     }
 }
-function handleMouseOver(event) {
+function handlePointerOver(event) {
     colorCanvas(event);
 }
 
-function handleMouseDown() {
+function handlePointerDown() {
     canvasPixel.forEach((pixel) => {
-        pixel.addEventListener('pointerover', handleMouseOver);
+        pixel.addEventListener('pointerover', handlePointerOver);
     })
 }
 
@@ -122,7 +141,7 @@ function toggleGrid() {
 function toggleTool(tool) {
     normalPen = false;
     rainbowPen = false;
-    darkenPen = false;
+    opacityPen = false;
     eraser = false;
     colorPicker = false;
     if (tool === "normalPen") {
@@ -133,9 +152,9 @@ function toggleTool(tool) {
         rainbowPen = true;
         rainbowPenButton.classList.add('active-button');
     }
-    else if (tool === "darkenPen") { 
-        darkenPen = true 
-        darkenPenButton.classList.add('active-button');
+    else if (tool === "opacityPen") { 
+        opacityPen = true 
+        opacityPenButton.classList.add('active-button');
     }
     else if (tool === "colorPicker") {
         colorPicker = true;
@@ -153,9 +172,9 @@ function toggleTool(tool) {
     {
         rainbowPenButton.classList.remove('active-button');
     }
-    if(darkenPen===false)
+    if(opacityPen===false)
     {
-        darkenPenButton.classList.remove('active-button');
+        opacityPenButton.classList.remove('active-button');
     }
     if(colorPicker===false)
     {
@@ -167,30 +186,17 @@ function toggleTool(tool) {
     }
 }
 
-createCanvas(50);
-
-const canvasPixel = Array.from(document.querySelectorAll(".canvascolumn"));
-canvasPixel.forEach((pixel) => {
-    pixel.addEventListener('pointerdown', handleMouseDown);
-    pixel.addEventListener('pointerdown', colorCanvas);
-});
-
-window.addEventListener('pointerup', () => {
-    canvasPixel.forEach((pixel) => {
-        pixel.removeEventListener('pointerover', handleMouseOver)
-    })
-}
-);
-
+createCanvas(32);
 
 penButton.addEventListener('click', () => {toggleTool("normalPen")});
 colorPickerButton.addEventListener('click', () => {toggleTool("colorPicker")});
-darkenPenButton.addEventListener('click', () => {toggleTool("darkenPen")});
+opacityPenButton.addEventListener('click', () => {toggleTool("opacityPen")});
 rainbowPenButton.addEventListener('click', () => {toggleTool("rainbowPen")});
 fillButton.addEventListener('click', () => {fillCanvas()});
 gridButton.addEventListener('click', () => {toggleGrid()});
 eraseButton.addEventListener('click', () => {toggleTool("eraser")});
 clearButton.addEventListener('click', () => {eraseCanvas()});
+slider.addEventListener('change', () => {createCanvas(slider.value)});
 colorPalette.forEach((color) => {
     color.addEventListener('click', (colorTarget) => {
         const clickedColor = getComputedStyle(colorTarget.target);
@@ -198,5 +204,12 @@ colorPalette.forEach((color) => {
         colorSelected.style.backgroundColor = newColor;
         console.log(newColor);
     })
-})
+});
 
+//NOTHING GOING ON HERE KEEP MOVING :) seriously... >:(
+
+document.querySelector('img[alt="exit-button"]').onclick = function () {
+    location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+};
+
+//ok im sorry lol
