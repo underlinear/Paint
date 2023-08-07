@@ -11,6 +11,7 @@ const eraseButton = document.querySelector("#eraser");
 const colorPickerButton = document.querySelector("#color-extractor");
 const fillButton = document.querySelector("#fill");
 const slider = document.querySelector('input[type="range"]');
+const footerText = document.querySelector('#canvas-size');
 let canvasPixel;
 let gridActive = false;
 let rainbowPen = false;
@@ -38,6 +39,9 @@ function createCanvas(dimensions) {
         }
         canvas.appendChild(row);
     }
+
+    footerText.textContent=`${dimensions} x ${dimensions}`;
+
     canvasPixel = Array.from(document.querySelectorAll(".canvascolumn"));
 
     canvasPixel.forEach((pixel) => {
@@ -49,8 +53,8 @@ function createCanvas(dimensions) {
         canvasPixel.forEach((pixel) => {
             pixel.removeEventListener('pointerover', handlePointerOver)
         })
-    }
-    );
+    });
+
 }
 
 function colorCanvas(pixel) {
@@ -209,7 +213,7 @@ colorPalette.forEach((color) => {
 //NOTHING GOING ON HERE KEEP MOVING :) seriously... >:(
 
 document.querySelector('img[alt="exit-button"]').onclick = function () {
-    location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
 };
 
 //ok im sorry lol
