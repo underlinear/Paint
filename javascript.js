@@ -14,6 +14,7 @@ const slider = document.querySelector('input[type="range"]');
 const scrollBarIncrease = document.querySelector('#scroll-up-button');
 const scrollBarDecrease = document.querySelector('#scroll-down-button');
 const footerText = document.querySelector('#canvas-size');
+let previousSlider = 32;
 let canvasPixel;
 let gridActive = false;
 let rainbowPen = false;
@@ -26,7 +27,16 @@ let fillColor = 'white';
 
 penButton.classList.add('active-button');
 
-function createCanvas(dimensions) {
+function createCanvas(dimensions,skipConfirm) {
+    if(skipConfirm!==true)
+    {
+       if(!confirm("Are you sure you'd like to change the canvas size? \n\tThis would erase all your current work!"))
+       {
+            slider.value = previousSlider;
+            return;
+       }
+    }
+    previousSlider = slider.value;
     while(canvas.firstChild)
     {
         canvas.firstChild.remove();
@@ -56,7 +66,6 @@ function createCanvas(dimensions) {
             pixel.removeEventListener('pointerover', handlePointerOver)
         })
     });
-
 }
 
 function colorCanvas(pixel) {
@@ -207,12 +216,12 @@ function modifySizeByOne(event,action) {
     {
         slider.value--;
     }
-    createCanvas(slider.value);
+    createCanvas(slider.value,true);
     
     event.target.addEventListener('pointerup',(e) => {handlePointerUp(e)},{once:true});
 }
 
-createCanvas(32);
+createCanvas(32,true);
 
 penButton.addEventListener('click', () => {toggleTool("normalPen")});
 colorPickerButton.addEventListener('click', () => {toggleTool("colorPicker")});
