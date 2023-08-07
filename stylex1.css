@@ -79,15 +79,17 @@ main {
 }
 
 #title-bar #button .title-border img {
-    padding:0;
-    margin:0;
-    width: 12px;
+    display: flex;
+    align-items:flex-start;
+    justify-content:center;
+    
+    width: 100%;
     height: 10px;
 }
 
 #title-bar #button .title-border:active{
     border: 2px solid transparent;
-    border-image: url('images/border/border-inverted.png') 2 / 2px round;
+    border-image: url('images/border/border-inverted.png') 4 / 2px round;
 }
 
 
@@ -220,7 +222,7 @@ main {
     height: 12px;
     background-color: #bdbdbd;
     border:2px solid transparent;
-    border-image: url('images/border/border.png') 2 / 2px round;
+    border-image: url('images/border/border.png') 4 / 2px round;
 }
 
 #color-picker {
