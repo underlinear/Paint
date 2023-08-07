@@ -11,6 +11,8 @@ const eraseButton = document.querySelector("#eraser");
 const colorPickerButton = document.querySelector("#color-extractor");
 const fillButton = document.querySelector("#fill");
 const slider = document.querySelector('input[type="range"]');
+const scrollBarIncrease = document.querySelector('#scroll-up-button');
+const scrollBarDecrease = document.querySelector('#scroll-down-button');
 const footerText = document.querySelector('#canvas-size');
 let canvasPixel;
 let gridActive = false;
@@ -61,7 +63,6 @@ function colorCanvas(pixel) {
     let currentColor = window.getComputedStyle(colorSelected);
     let targetPixel = window.getComputedStyle(pixel.target);
     let redValue, greenValue, blueValue;
-    console.log(rainbowPen, opacityPen, normalPen, eraser);
     if (rainbowPen === true) {
         redValue = Math.floor(Math.random() * 256);
         greenValue = Math.floor(Math.random() * 256);
@@ -120,10 +121,15 @@ function handlePointerOver(event) {
     colorCanvas(event);
 }
 
-function handlePointerDown() {
+function handlePointerDown(event) {
     canvasPixel.forEach((pixel) => {
         pixel.addEventListener('pointerover', handlePointerOver);
     })
+    event.target.removeEventListener('pointerup',(e) => {handlePointerUp(e)});
+}
+
+function handlePointerUp(event) {
+    event.target.classList.remove('scroll-button-active');
 }
 
 function toggleGrid() {
@@ -190,6 +196,22 @@ function toggleTool(tool) {
     }
 }
 
+function modifySizeByOne(event,action) {
+    event.target.classList.add('scroll-button-active');
+
+    if(action==="add")
+    {
+        slider.value++;
+    }
+    else
+    {
+        slider.value--;
+    }
+    createCanvas(slider.value);
+    
+    event.target.addEventListener('pointerup',(e) => {handlePointerUp(e)},{once:true});
+}
+
 createCanvas(32);
 
 penButton.addEventListener('click', () => {toggleTool("normalPen")});
@@ -200,13 +222,14 @@ fillButton.addEventListener('click', () => {fillCanvas()});
 gridButton.addEventListener('click', () => {toggleGrid()});
 eraseButton.addEventListener('click', () => {toggleTool("eraser")});
 clearButton.addEventListener('click', () => {eraseCanvas()});
+scrollBarIncrease.addEventListener('pointerdown', (e) => {modifySizeByOne(e,"add")});
+scrollBarDecrease.addEventListener('pointerdown', (e) => {modifySizeByOne(e,"subtract")});
 slider.addEventListener('change', () => {createCanvas(slider.value)});
 colorPalette.forEach((color) => {
     color.addEventListener('click', (colorTarget) => {
         const clickedColor = getComputedStyle(colorTarget.target);
         const newColor = clickedColor.backgroundColor;
         colorSelected.style.backgroundColor = newColor;
-        console.log(newColor);
     })
 });
 

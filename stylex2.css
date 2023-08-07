@@ -250,10 +250,15 @@ input[type="range"] {
     border-image: url('images/border/border.png') 4 / 4px round;
 }
 
-#scroll-down-button {
+#scroll-up-button {
     background-image: url('images/icons/increase.png');
     position:absolute;
     bottom:0;
+}
+
+#scroll-bar .scroll-button-active {
+    border-image: url('images/border/border-scroll-inverted.png') 4 / 4px round;
+    background-position: 2px 2px;
 }
 
 #color-picker {
