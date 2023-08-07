@@ -423,6 +423,8 @@ footer {
 }
 
 #footer-wrapper {
+    display: flex;
+    justify-content: space-between;
     border: 2px solid transparent;
     border-image:url('images/border/footer-border.png') 2 / 2px round;
     padding-top:16px;
@@ -435,5 +437,9 @@ footer {
     font-size: 18px;
     margin-left: 2px;
     margin-bottom: 1px;
+}
+
+#footer-wrapper #canvas-size {
+    margin-right: 6px;
 }
 
