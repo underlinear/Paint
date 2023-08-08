@@ -168,7 +168,7 @@ main {
     /*TEMP: replace with background-image */
     background: 
     repeating-conic-gradient(#bdbdbd 0% 25%, white 0% 50%) 
-      50% / 4px 4px;
+    50% / 4px 4px;
 }
 
 .active-button img {
@@ -448,3 +448,178 @@ footer {
     margin-right: 6px;
 }
 
+@media only screen and (min-width : 320px) and (max-width: 768px){
+    #window-wrapper {
+        border-image: url('images/border/border.png') 2 / 2px round;
+    }
+    #title-bar {
+        height: 18px;
+        margin: 2px 2px 0px 2px;
+    }
+    #title-bar #title p {
+        font-size: 9px;
+    }
+    #title-bar #title img {
+        width: 17px;
+        height: 16px;
+        margin-left: 2px;
+        margin-right: 3px;
+    }
+    #title-bar #button {
+        margin-right: 2px;
+    }
+    #title-bar #button .title-border {
+        width: 12px;
+        height: 10px;
+        margin: 0 0 0 2px;
+        border: 2px solid transparent;
+        border-image: url('images/border/border-title-button.png') 4 / 2px round;
+    }
+    #title-bar #button .title-border img {
+        display: flex;
+        align-items:flex-start;
+        justify-content:center;
+        width: 100%;
+        height: 10px;
+    }
+    #title-bar #button .title-border:active{
+        border: 2px solid transparent;
+        border-image: url('images/border/border-inverted.png') 4 / 2px round;
+    }
+    #title-bar #button .title-border img:active {
+        margin-top: 1px;
+        margin-left: 1px;
+    }
+    #menu-bar {
+        height: 20px;
+    }
+    #menu-bar ul{
+        margin-left:4px;
+    }
+    #menu-bar ul li button{
+        font-size: 9px;
+        padding: 2px 6px;
+        text-decoration-thickness: 1px;
+    }
+    #sidebar-tools {
+        width: 66px;
+    }
+    .sidebar-line-border {
+        border-top: 1px solid #7b7b7b;
+        border-bottom: 1px solid white;
+        margin: 0 1px 0 4px;
+    }
+    .end {
+        width:56px;
+    }
+    #sidebar-tools #tools{
+        grid-template-columns: repeat(2,25px);
+        margin-left:8px;
+        margin-top:-1px;
+    }
+    #sidebar-tools #tools div{
+        border: 2px solid transparent;
+        border-image: url('images/border/border-title-button.png') 4 / 2px round;
+        height: 21px;
+    }
+    #sidebar-tools #tools .active-button {
+        border: 2px solid transparent;
+        border-image: url('images/border/border-inverted.png') 4 / 2px round;
+        background: 
+        repeating-conic-gradient(#bdbdbd 0% 25%, white 0% 50%) 
+        50% / 2px 2px;
+    }
+    #sidebar-tools #tools div img{
+        height:21px;
+        width:21px;
+    }
+    .active-button img {
+        margin-top: 1px;
+        margin-left: 1px;
+    }
+    #sidebar-tools #tools .inactive {
+        border: 2px solid transparent;
+        border-image: url('images/border/border-inverted.png') 4 / 2px round;
+    }
+    #canvas-and-scroll-container {
+        border:2px solid transparent;
+        border-image: url('images/border/border-inverted.png') 4 / 2px round;
+        margin-right:4px;
+    }
+    #canvas {
+        width: 250px;
+        height: 250px;
+    }
+    #scroll-bar {
+        width: 16px;
+    }
+    input[type="range"] {
+        margin-top:109px;
+        width: 218px;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+        height: 16px;
+        width: 16px;
+        transform: rotate(270deg);
+    }
+    #scroll-up-button, #scroll-down-button {
+        width: 12px;
+        height: 12px;
+        background-size:contain;
+        border:2px solid transparent;
+        border-image: url('images/border/border.png') 4 / 2px round;
+    }
+    #scroll-bar .scroll-button-active {
+        border-image: url('images/border/border-scroll-inverted.png') 4 / 2px round;
+        background-position: 1px 1px;
+    }
+    #color-picker {
+        margin-top: 9px;
+        margin-bottom: 10px;
+    }
+    #color-picker #color-selected {
+        margin-left: 4px;
+    }
+    #color-picker #color-selected img {
+        width: 27px;
+        height: 28px;
+        border:2px solid transparent;
+        border-image: url('images/border/border-palette.png') 4 / 2px round;
+    }
+    #color-picker #color-palette {
+        grid-template-columns: repeat(14, 16px);
+        grid-template-rows: repeat(2, 16px);
+        /*box-shadow: 0 -2px 0 0px #7b7b7b, 2px 0 0 2px #7b7b7b;*/
+    }
+    #color-picker #color-palette div{
+        border:2px solid transparent;
+        border-image: url('images/border/border-palette.png') 4 / 2px round;
+    }
+    #bottom-line-border {
+        width: 327px;
+        border-top: 1px solid #7b7b7b;
+        border-bottom: 1px solid white;
+        margin: 0 1px 0 4px;
+    }
+    footer {
+        height: 25px;
+        margin: 0 2px 2px 2px;
+    }
+    #footer-wrapper {
+        border: 1px solid transparent;
+        border-image:url('images/border/footer-border.png') 2 / 1px round;
+        padding-top:8px;
+        margin-right: 6px;
+        margin-left: 6px;
+        margin-top: 2px;
+    }
+    #footer-wrapper p {
+        font-size: 9px;
+        margin-left: 1px;
+        margin-bottom: 0px;
+    }
+    
+    #footer-wrapper #canvas-size {
+        margin-right: 3px;
+    }
+}
